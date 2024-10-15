@@ -1,4 +1,4 @@
-package br.com.grupo1.gp1_api.entities;
+package br.com.grupo1.gp1_api.security.entities;
 
 import br.com.grupo1.gp1_api.security.enums.RoleEnum;
 import jakarta.persistence.Column;

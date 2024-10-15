@@ -30,35 +30,22 @@ public class JwtUtils {
 
 		UserDetailsImpl userPrincipal = (UserDetailsImpl) authentication.getPrincipal();
 		SecretKey sKey = Keys.hmacShaKeyFor(jwtSecret.getBytes(StandardCharsets.UTF_8));
-		
-		return Jwts.builder()
-					.setSubject((userPrincipal.getUsername()))
-					.setIssuedAt(new Date())
-					.setExpiration(new Date((new Date()).getTime() + jwtExpirationMs))
-					.signWith(sKey)
-					.compact();
+
+		return Jwts.builder().setSubject((userPrincipal.getUsername())).setIssuedAt(new Date())
+				.setExpiration(new Date((new Date()).getTime() + jwtExpirationMs)).signWith(sKey).compact();
 	}
 
 	public String getUserNameFromJwtToken(String token) {
 		SecretKey sKey = Keys.hmacShaKeyFor(jwtSecret.getBytes(StandardCharsets.UTF_8));
-		return Jwts.parserBuilder()
-				.setSigningKey(sKey)
-				.build()
-				.parseClaimsJws(token)
-				.getBody().getSubject();
+		return Jwts.parserBuilder().setSigningKey(sKey).build().parseClaimsJws(token).getBody().getSubject();
 	}
 
 	public boolean validateJwtToken(String authToken) {
 		try {
 			SecretKey sKey = Keys.hmacShaKeyFor(jwtSecret.getBytes(StandardCharsets.UTF_8));
-			Jwts.parserBuilder()
-				.setSigningKey(sKey)
-				.build()
-				.parseClaimsJws(authToken)
-				.getBody()
-				.getSubject();
+			Jwts.parserBuilder().setSigningKey(sKey).build().parseClaimsJws(authToken).getBody().getSubject();
 			return true;
-		}catch (JwtException e) {
+		} catch (JwtException e) {
 			logger.error("Token JWT inválido: {}", e.getMessage());
 		}
 		return false;

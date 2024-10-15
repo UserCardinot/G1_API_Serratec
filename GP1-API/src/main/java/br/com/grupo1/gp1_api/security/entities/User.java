@@ -1,9 +1,8 @@
-package br.com.grupo1.gp1_api.entities;
+package br.com.grupo1.gp1_api.security.entities;
 
 import java.util.HashSet;
 import java.util.Set;
 
-import br.com.grupo1.gp1_api.entities.Role;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;

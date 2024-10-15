@@ -1,4 +1,4 @@
-package br.com.grupo1.gp1_api.enums;
+package br.com.grupo1.gp1_api.security.enums;
 
 public enum RoleEnum {
     

@@ -10,16 +10,16 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.util.StringUtils;
+import org.springframework.web.filter.OncePerRequestFilter;
 
+import br.com.grupo1.gp1_api.security.jwt.JwtUtils;
+import br.com.grupo1.gp1_api.security.services.UserDetailsServiceImpl;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-import br.com.grupo1.gp1_api.security.jwt.JwtUtils;
-import br.com.grupo1.gp1_api.security.services.UserDetailsServiceImpl;
-
-public class AuthTokenFilter {
+public class AuthTokenFilter extends OncePerRequestFilter {
 	@Autowired
 	private JwtUtils jwtUtils;
 

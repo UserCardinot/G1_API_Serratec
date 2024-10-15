@@ -10,7 +10,7 @@ import br.com.grupo1.gp1_api.security.repositories.RoleRepository;
 public class RoleService {
 	@Autowired
 	RoleRepository roleRepository;
-	
+
 	public Role save(Role role) {
 		return roleRepository.save(role);
 	}

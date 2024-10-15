@@ -37,6 +37,13 @@ public class SwaggerConfig {
 		license.setUrl("https://www.apache.org/licenses/LICENSE-2.0.html");
 
 		Info info = new Info();
+//		info.setTitle("");
+        info.setVersion("2.0.0");
+//        info.setDescription("");
+        info.setContact(contact);
+        info.setLicense(license);
+        info.setTermsOfService("https://swagger.io/terms/");
+		
 
 		return new OpenAPI().info(info).servers(List.of(server));
 	}

@@ -4,7 +4,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
-import jakarta.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -18,17 +18,18 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import grupo1.gp1_api.security.domain.Role;
-import grupo1.gp1_api.security.domain.User;
-import grupo1.gp1_api.security.dto.JwtResponseDTO;
-import grupo1.gp1_api.security.dto.LoginRequestDTO;
-import grupo1.gp1_api.security.dto.MessageResponseDTO;
-import grupo1.gp1_api.security.dto.SignupRequestDTO;
-import grupo1.gp1_api.security.enums.RoleEnum;
-import grupo1.gp1_api.security.jwt.JwtUtils;
-import grupo1.gp1_api.security.repositories.RoleRepository;
-import grupo1.gp1_api.security.repositories.UserRepository;
-import grupo1.gp1_api.security.services.UserDetailsImpl;
+import br.com.grupo1.gp1_api.security.dto.JwtResponseDTO;
+import br.com.grupo1.gp1_api.security.dto.LoginRequestDTO;
+import br.com.grupo1.gp1_api.security.dto.MessageResponseDTO;
+import br.com.grupo1.gp1_api.security.dto.SignupRequestDTO;
+import br.com.grupo1.gp1_api.security.entities.Role;
+import br.com.grupo1.gp1_api.security.entities.User;
+import br.com.grupo1.gp1_api.security.enums.RoleEnum;
+import br.com.grupo1.gp1_api.security.jwt.JwtUtils;
+import br.com.grupo1.gp1_api.security.repositories.RoleRepository;
+import br.com.grupo1.gp1_api.security.repositories.UserRepository;
+import br.com.grupo1.gp1_api.security.services.UserDetailsImpl;
+import jakarta.validation.Valid;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
@@ -97,9 +98,9 @@ public class AuthController {
 					break;
 				case "mod":
 					Role modRole = roleRepository.findByName(RoleEnum.ROLE_MODERATOR)
-					.orElseThrow(() -> new RuntimeException("Erro: Role não encontrada."));
+							.orElseThrow(() -> new RuntimeException("Erro: Role não encontrada."));
 					roles.add(modRole);
-					
+
 					break;
 				default:
 					Role userRole = roleRepository.findByName(RoleEnum.ROLE_USER)
