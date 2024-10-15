@@ -1,4 +1,4 @@
-package br.com.grupo1.gp1_api.jwt;
+package br.com.grupo1.gp1_api.security.jwt;
 
 import java.nio.charset.StandardCharsets;
 import java.util.Date;
@@ -11,7 +11,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;
 
-import br.com.grupo1.gp1_api.services.UserDetailsImpl;
+import br.com.grupo1.gp1_api.security.services.UserDetailsImpl;
 import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
