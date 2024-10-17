@@ -1,4 +1,4 @@
-package br.com.grupo1.gp1_api.services;
+package br.com.grupo1.gp1_api.security.services;
 
 import java.util.Properties;
 

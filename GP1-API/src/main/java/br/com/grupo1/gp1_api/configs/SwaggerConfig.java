@@ -38,7 +38,7 @@ public class SwaggerConfig {
 
 		Info info = new Info();
 //		info.setTitle("");
-        info.setVersion("2.0.0");
+        info.setVersion("3.0.0");
 //        info.setDescription("");
         info.setContact(contact);
         info.setLicense(license);
