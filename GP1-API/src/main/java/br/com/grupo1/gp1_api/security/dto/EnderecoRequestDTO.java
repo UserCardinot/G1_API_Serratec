@@ -2,17 +2,26 @@ package br.com.grupo1.gp1_api.security.dto;
 
 public class EnderecoRequestDTO {
     private String rua;
+    private String numero;
     private String cidade;
     private String estado;
     private String cep;
 
-    
+ 
     public String getRua() {
         return rua;
     }
 
     public void setRua(String rua) {
         this.rua = rua;
+    }
+
+    public String getNumero() {
+        return numero;
+    }
+
+    public void setNumero(String numero) {
+        this.numero = numero;
     }
 
     public String getCidade() {

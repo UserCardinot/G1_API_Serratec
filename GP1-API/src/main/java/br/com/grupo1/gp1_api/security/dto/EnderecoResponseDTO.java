@@ -3,11 +3,12 @@ package br.com.grupo1.gp1_api.security.dto;
 public class EnderecoResponseDTO {
     private Long id;
     private String rua;
+    private String numero;
     private String cidade;
     private String estado;
     private String cep;
 
-    
+ 
     public Long getId() {
         return id;
     }
@@ -22,6 +23,14 @@ public class EnderecoResponseDTO {
 
     public void setRua(String rua) {
         this.rua = rua;
+    }
+
+    public String getNumero() {
+        return numero;
+    }
+
+    public void setNumero(String numero) {
+        this.numero = numero;
     }
 
     public String getCidade() {

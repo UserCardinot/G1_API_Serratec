@@ -13,6 +13,7 @@ public class Endereco {
     private Long id;
 
     private String rua;
+    private String numero;
     private String cidade;
     private String estado;
     private String cep;
@@ -31,6 +32,14 @@ public class Endereco {
 
     public void setRua(String rua) {
         this.rua = rua;
+    }
+    
+    public String getNumero() { 
+        return numero;
+    }
+
+    public void setNumero(String numero) { 
+        this.numero = numero;
     }
 
     public String getCidade() {
