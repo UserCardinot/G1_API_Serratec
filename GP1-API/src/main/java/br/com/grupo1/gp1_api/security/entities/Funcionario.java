@@ -1,10 +1,16 @@
 package br.com.grupo1.gp1_api.security.entities;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Size;
 
@@ -32,6 +38,11 @@ public class Funcionario {
 
     @Column(name = "fun_txt_telefone")
     private String telefone;
+
+    @ManyToMany
+    @JoinTable(name = "funcionario_produto", joinColumns = @JoinColumn(name = "funcionario_id"), inverseJoinColumns = @JoinColumn(name = "produto_id"))
+    private Set<Produto> funcionarioProduto = new HashSet<>();
+    
 
     public Funcionario() {
     }
@@ -90,5 +101,13 @@ public class Funcionario {
 
     public void setTelefone(String telefone) {
         this.telefone = telefone;
+    }
+
+    public Set<Produto> getFuncionarioProduto() {
+        return funcionarioProduto;
+    }
+
+    public void setFuncionarioProduto(Set<Produto> funcionarioProduto) {
+        this.funcionarioProduto = funcionarioProduto;
     }
 }
