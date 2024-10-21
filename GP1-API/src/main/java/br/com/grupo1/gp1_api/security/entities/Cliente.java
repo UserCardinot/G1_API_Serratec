@@ -31,9 +31,19 @@ public class Cliente {
     @JoinColumn(name = "end_int_id")
     private Endereco endereco;
 
-    
-  
-    public String getEmail() {
+    public Endereco getEndereco() {
+		return endereco;
+	}
+
+	public void setEndereco(Endereco endereco) {
+		this.endereco = endereco;
+	}
+
+	public Double getCpf() {
+		return cpf;
+	}
+
+	public String getEmail() {
 		return email;
 	}
 
