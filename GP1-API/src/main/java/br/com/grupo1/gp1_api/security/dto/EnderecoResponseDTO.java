@@ -1,7 +1,9 @@
 package br.com.grupo1.gp1_api.security.dto;
 
+import br.com.grupo1.gp1_api.security.entities.Endereco;
+
 public class EnderecoResponseDTO {
-    private Long id;
+    private Integer id;
     private String rua;
     private String numero;
     private String cidade;
@@ -9,11 +11,11 @@ public class EnderecoResponseDTO {
     private String cep;
 
  
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -55,5 +57,10 @@ public class EnderecoResponseDTO {
 
     public void setCep(String cep) {
         this.cep = cep;
+    }
+    
+    public Endereco toEndereco() {
+    	return new Endereco(this.id, this.cep, this.cidade, this.estado, 
+    			this.numero, this.rua);
     }
 }
