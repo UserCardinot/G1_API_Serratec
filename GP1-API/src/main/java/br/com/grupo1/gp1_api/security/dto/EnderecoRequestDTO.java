@@ -1,14 +1,24 @@
 package br.com.grupo1.gp1_api.security.dto;
 
 public class EnderecoRequestDTO {
+	private Integer id;
     private String rua;
     private String numero;
     private String cidade;
     private String estado;
     private String cep;
 
+    
  
-    public String getRua() {
+    public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public String getRua() {
         return rua;
     }
 
