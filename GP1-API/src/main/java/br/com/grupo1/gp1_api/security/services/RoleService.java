@@ -12,6 +12,9 @@ public class RoleService {
 	RoleRepository roleRepository;
 
 	public Role save(Role role) {
+		if (roleRepository.existsByName(role.getName())) {
+			return null;
+		}
 		return roleRepository.save(role);
 	}
 }

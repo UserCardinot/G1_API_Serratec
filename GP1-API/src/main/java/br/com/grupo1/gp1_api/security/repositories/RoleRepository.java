@@ -11,4 +11,6 @@ import br.com.grupo1.gp1_api.security.enums.RoleEnum;
 @Repository("role")
 public interface RoleRepository extends JpaRepository<Role, Integer> {
 	Optional<Role> findByName(RoleEnum name);
+	
+	boolean existsByName(RoleEnum name);
 }

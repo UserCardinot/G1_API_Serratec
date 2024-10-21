@@ -20,12 +20,14 @@ public class RoleController {
 	RoleService roleService;
 
 	@PostMapping
-	public ResponseEntity<Role> save(@RequestBody Role role) {
+	public ResponseEntity<?> save(@RequestBody Role role) {
+
 		Role newRole = roleService.save(role);
+
 		if (newRole != null)
 			return new ResponseEntity<>(newRole, HttpStatus.CREATED);
 		else
-			return new ResponseEntity<>(newRole, HttpStatus.BAD_REQUEST);
+			return  ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Erro: Role já cadastrada!");
 	}
 
 }
