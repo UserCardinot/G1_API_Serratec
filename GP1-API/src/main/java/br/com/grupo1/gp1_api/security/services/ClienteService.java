@@ -33,5 +33,9 @@ public class ClienteService {
 	public List<Cliente> findAll() {
 		return clienteRepository.findAll();
 	}
+	
+	public void deletarCliente(Integer id) {
+		clienteRepository.deleteById(id);
+	}
 
 }
