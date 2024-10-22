@@ -32,17 +32,16 @@ public class ClienteController {
 	public List<Cliente> getAllClientes() {
 		return clienteService.findAll();
 	}
-	
+
 	@DeleteMapping("/{id}")
-    public ResponseEntity<Void> deletarCliente(@PathVariable Integer id) {
-        clienteService.deletarCliente(id);
-        return ResponseEntity.noContent().build();
+	public ResponseEntity<Void> deletarCliente(@PathVariable Integer id) {
+		clienteService.deletarCliente(id);
+		return ResponseEntity.noContent().build();
 	}
+
 	@PutMapping("/{id}")
-	 public ResponseEntity<Cliente>atualizarCliente(@PathVariable Integer id, @RequestBody ClienteDTO clienteDto){
+	public ResponseEntity<Cliente> atualizarCliente(@PathVariable Integer id, @RequestBody ClienteDTO clienteDto) {
 		Cliente clienteAtualizado = clienteService.atualizarCliente(id, clienteDto);
 		return ResponseEntity.ok(clienteAtualizado);
-	 }
-	 
-
+	}
 }

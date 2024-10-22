@@ -45,7 +45,6 @@ public class ClienteService {
 			Cliente cliente = clienteUpdate.get();
 			cliente.setNome(clienteDto.getNome());
 			cliente.setCpf(clienteDto.getCpf());
-			cliente.setUser(clienteDto.getUser());
 			return clienteRepository.save(cliente);
 		} else {
 			throw new RuntimeException("ID não encontrado");
