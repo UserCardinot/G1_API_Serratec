@@ -2,9 +2,8 @@ package br.com.grupo1.gp1_api.security.enums;
 
 public enum RoleEnum {
     
-	ROLE_USER("Role Usuário", 1),
-	ROLE_MODERATOR("Role Moderador", 2),
-	ROLE_ADMIN("Role Administrador", 3);
+	ROLE_CLIENTE("Role Cliente", 1),
+	ROLE_FUNCIONARIO("Role Funcionário", 2);
 	
 	private String tipo;
     private int codigo;
