@@ -1,66 +1,83 @@
 package br.com.grupo1.gp1_api.security.dto;
 
-import br.com.grupo1.gp1_api.security.entities.Endereco;
-
 public class EnderecoResponseDTO {
-    private Integer id;
-    private String rua;
-    private String numero;
-    private String cidade;
-    private String estado;
-    private String cep;
 
- 
-    public Integer getId() {
-        return id;
-    }
+	private Integer id;
+	private String cep;
+	private String logradouro;
+	private String localidade;
+	private String uf;
+	private String bairro;
+	private int numero;
+	private String complemento;
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
 
-    public String getRua() {
-        return rua;
-    }
+	public Integer getId() {
+		return id;
+	}
 
-    public void setRua(String rua) {
-        this.rua = rua;
-    }
+	public void setId(Integer id) {
+		this.id = id;
+	}
 
-    public String getNumero() {
-        return numero;
-    }
+	public String getLogradouro() {
+		return logradouro;
+	}
 
-    public void setNumero(String numero) {
-        this.numero = numero;
-    }
+	public void setLogradouro(String logradouro) {
+		this.logradouro = logradouro;
+	}
 
-    public String getCidade() {
-        return cidade;
-    }
+	public Integer getNumero() {
+		return numero;
+	}
 
-    public void setCidade(String cidade) {
-        this.cidade = cidade;
-    }
+	public void setNumero(int numero) {
+		this.numero = numero;
+	}
 
-    public String getEstado() {
-        return estado;
-    }
+	public String getLocalidade() {
+		return localidade;
+	}
 
-    public void setEstado(String estado) {
-        this.estado = estado;
-    }
+	public void setLocalidade(String localidade) {
+		this.localidade = localidade;
+	}
 
-    public String getCep() {
-        return cep;
-    }
+	public String getUf() {
+		return uf;
+	}
 
-    public void setCep(String cep) {
-        this.cep = cep;
-    }
-    
-    public Endereco toEndereco() {
-    	return new Endereco(this.id, this.cep, this.cidade, this.estado, 
-    			this.numero, this.rua);
-    }
+	public void setUf(String uf) {
+		this.uf = uf;
+	}
+
+	public String getCep() {
+		return cep;
+	}
+
+	public void setCep(String cep) {
+		this.cep = cep;
+	}
+
+	public String getComplemento() {
+		return complemento;
+	}
+
+	public void setComplemento(String complemento) {
+		this.complemento = complemento;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public String getBairro() {
+		return bairro;
+	}
+
+	public void setBairro(String bairro) {
+		this.bairro = bairro;
+	}
+	
 }

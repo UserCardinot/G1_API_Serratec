@@ -1,60 +1,33 @@
 package br.com.grupo1.gp1_api.security.dto;
 
 public class EnderecoRequestDTO {
-	private Integer id;
-    private String rua;
-    private String numero;
-    private String cidade;
-    private String estado;
-    private String cep;
 
-    
- 
-    public Integer getId() {
-		return id;
+	private String cep;
+	private int numero;
+	private String complemento;
+
+	public int getNumero() {
+		return numero;
 	}
 
-	public void setId(Integer id) {
-		this.id = id;
+	public void setNumero(int numero) {
+		this.numero = numero;
 	}
 
-	public String getRua() {
-        return rua;
-    }
+	public String getCep() {
+		return cep;
+	}
 
-    public void setRua(String rua) {
-        this.rua = rua;
-    }
+	public void setCep(String cep) {
+		this.cep = cep;
+	}
 
-    public String getNumero() {
-        return numero;
-    }
+	public String getComplemento() {
+		return complemento;
+	}
 
-    public void setNumero(String numero) {
-        this.numero = numero;
-    }
+	public void setComplemento(String complemento) {
+		this.complemento = complemento;
+	}
 
-    public String getCidade() {
-        return cidade;
-    }
-
-    public void setCidade(String cidade) {
-        this.cidade = cidade;
-    }
-
-    public String getEstado() {
-        return estado;
-    }
-
-    public void setEstado(String estado) {
-        this.estado = estado;
-    }
-
-    public String getCep() {
-        return cep;
-    }
-
-    public void setCep(String cep) {
-        this.cep = cep;
-    }
 }

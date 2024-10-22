@@ -1,12 +1,13 @@
 package br.com.grupo1.gp1_api.security.services;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import br.com.grupo1.gp1_api.security.dto.EnderecoRequestDTO;
 import br.com.grupo1.gp1_api.security.dto.EnderecoResponseDTO;
 import br.com.grupo1.gp1_api.security.entities.Endereco;
 import br.com.grupo1.gp1_api.security.repositories.EnderecoRepository;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import br.com.grupo1.gp1_api.utils.Util;
 
 @Service
 public class EnderecoService {
@@ -14,25 +15,28 @@ public class EnderecoService {
 	@Autowired
 	private EnderecoRepository enderecoRepository;
 
-	public EnderecoResponseDTO salvarEndereco(EnderecoRequestDTO enderecoRequestDTO) {
-		EnderecoResponseDTO endereco = new EnderecoResponseDTO();
-		endereco.setRua(enderecoRequestDTO.getRua());
-		endereco.setNumero(enderecoRequestDTO.getNumero());
-		endereco.setCidade(enderecoRequestDTO.getCidade());
-		endereco.setEstado(enderecoRequestDTO.getEstado());
-		endereco.setCep(enderecoRequestDTO.getCep());
+	@Autowired
+	private Util util;
 
-		Endereco enderecoSalvo = endereco.toEndereco();
-		enderecoRepository.save(enderecoSalvo);
+	public EnderecoResponseDTO salvarEndereco(EnderecoRequestDTO enderecoRequest) {
 
-		EnderecoResponseDTO enderecoResponseDTO = new EnderecoResponseDTO();
-		enderecoResponseDTO.setId(enderecoSalvo.getId());
-		enderecoResponseDTO.setRua(enderecoSalvo.getRua());
-		enderecoResponseDTO.setNumero(enderecoSalvo.getNumero());
-		enderecoResponseDTO.setCidade(enderecoSalvo.getCidade());
-		enderecoResponseDTO.setEstado(enderecoSalvo.getEstado());
-		enderecoResponseDTO.setCep(enderecoSalvo.getCep());
+		EnderecoResponseDTO viaCep = util.buscarEndereco(enderecoRequest.getCep());
+		Endereco novoEndereco = new Endereco();
 
-		return enderecoResponseDTO;
+		novoEndereco.setLogradouro(viaCep.getLogradouro());
+		novoEndereco.setLocalidade(viaCep.getLocalidade());
+		novoEndereco.setUf(viaCep.getUf());
+		novoEndereco.setBairro(viaCep.getBairro());
+
+		novoEndereco.setNumero(enderecoRequest.getNumero());
+		novoEndereco.setComplemento(enderecoRequest.getComplemento());
+		novoEndereco.setCep(enderecoRequest.getCep());
+
+		enderecoRepository.save(novoEndereco);
+
+		viaCep.setId(novoEndereco.getId());
+		viaCep.setNumero(enderecoRequest.getNumero());
+		viaCep.setComplemento(enderecoRequest.getComplemento());
+		return viaCep;
 	}
 }

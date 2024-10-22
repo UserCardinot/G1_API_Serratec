@@ -13,32 +13,44 @@ public class Endereco {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id")
+	@Column(name = "end_cd_id")
 	private Integer id;
 
-	@Column(name = "rua")
-	private String rua;
+	@Column(name = "end_tx_logradouro")
+	private String logradouro;
 
-	@Column(name = "numero")
-	private String numero;
+	@Column(name = "end_int_numero")
+	private int numero;
 
-	@Column(name = "cidade")
-	private String cidade;
+	@Column(name = "end_tx_localidade")
+	private String localidade;
 
-	@Column(name = "estado")
-	private String estado;
+	@Column(name = "end_tx_uf")
+	private String uf;
 
-	@Column(name = "cep")
+	@Column(name = "end_tx_cep")
 	private String cep;
 
-	public Endereco(Integer id, String rua, String numero, String cidade, String estado, String cep) {
+	@Column(name = "end_tx_complemento")
+	private String complemento;
+
+	@Column(name = "end_tx_bairro")
+	private String bairro;
+
+	public Endereco() {
+
+	}
+
+	public Endereco(String logradouro, int numero, String localidade, String uf, String cep, String complemento,
+			String bairro) {
 		super();
-		this.id = id;
-		this.rua = rua;
+		this.logradouro = logradouro;
 		this.numero = numero;
-		this.cidade = cidade;
-		this.estado = estado;
+		this.localidade = localidade;
+		this.uf = uf;
 		this.cep = cep;
+		this.complemento = complemento;
+		this.bairro = bairro;
 	}
 
 	public Integer getId() {
@@ -49,36 +61,36 @@ public class Endereco {
 		this.id = id;
 	}
 
-	public String getRua() {
-		return rua;
+	public String getLogradouro() {
+		return logradouro;
 	}
 
-	public void setRua(String rua) {
-		this.rua = rua;
+	public void setLogradouro(String logradouro) {
+		this.logradouro = logradouro;
 	}
 
-	public String getNumero() {
+	public int getNumero() {
 		return numero;
 	}
 
-	public void setNumero(String numero) {
+	public void setNumero(int numero) {
 		this.numero = numero;
 	}
 
-	public String getCidade() {
-		return cidade;
+	public String getLocalidade() {
+		return localidade;
 	}
 
-	public void setCidade(String cidade) {
-		this.cidade = cidade;
+	public void setLocalidade(String localidade) {
+		this.localidade = localidade;
 	}
 
-	public String getEstado() {
-		return estado;
+	public String getUf() {
+		return uf;
 	}
 
-	public void setEstado(String estado) {
-		this.estado = estado;
+	public void setUf(String uf) {
+		this.uf = uf;
 	}
 
 	public String getCep() {
@@ -89,10 +101,26 @@ public class Endereco {
 		this.cep = cep;
 	}
 
+	public String getComplemento() {
+		return complemento;
+	}
+
+	public void setComplemento(String complemento) {
+		this.complemento = complemento;
+	}
+
+	public String getBairro() {
+		return bairro;
+	}
+
+	public void setBairro(String bairro) {
+		this.bairro = bairro;
+	}
+
 	@Override
 	public String toString() {
-		return "Endereco [id=" + id + ", rua=" + rua + ", numero=" + numero + ", cidade=" + cidade + ", estado="
-				+ estado + ", cep=" + cep + "]";
+		return "Endereco [id=" + id + ", logradouro=" + logradouro + ", numero=" + numero + ", localidade=" + localidade
+				+ ", uf=" + uf + ", cep=" + cep + ", complemento=" + complemento + ", bairro=" + bairro + "]";
 	}
 
 }
