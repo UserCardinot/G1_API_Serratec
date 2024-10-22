@@ -24,7 +24,7 @@ public class Cliente {
 	private User user;
 
 	@Column(name = "cl_nome")
-	private String nomeCliente;
+	private String nome;
 
 	@Column(name = "cl_cpf")
 	private Double cpf;
@@ -52,8 +52,8 @@ public class Cliente {
 		return id;
 	}
 
-	public String getNomeCliente() {
-		return nomeCliente;
+	public String getNome() {
+		return nome;
 	}
 
 	public User getUser() {
@@ -64,8 +64,8 @@ public class Cliente {
 		this.cpf = cpf;
 	}
 
-	public void setNomeCliente(String nomeCliente) {
-		this.nomeCliente = nomeCliente;
+	public void setNome(String nome) {
+		this.nome = nome;
 	}
 
 	public void setUser(User user) {
