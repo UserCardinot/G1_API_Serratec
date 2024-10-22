@@ -7,31 +7,37 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "cliente")
 public class Cliente {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "cl_cd_id")
-    private Integer id;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "cl_cd_id")
+	private Integer id;
 
-    @Column(name = "cl_nome")
-    private String nomeCliente;
+	@OneToOne
+	@JoinColumn(name = "cl_fk_usuario")
+	private User user;
 
-    @Column(name = "cl_cpf")
-    private Double cpf;
+	@Column(name = "cl_nome")
+	private String nomeCliente;
 
-    @Column(name = "email")
-    private String email;
+	@Column(name = "cl_cpf")
+	private Double cpf;
 
-    @ManyToOne
-    @JoinColumn(name = "end_int_id")
-    private Endereco endereco;
+	@ManyToOne
+	@JoinColumn(name = "cl_fk_endereco")
+	private Endereco endereco;
 
-    public Endereco getEndereco() {
+	public Cliente() {
+
+	}
+
+	public Endereco getEndereco() {
 		return endereco;
 	}
 
@@ -43,14 +49,6 @@ public class Cliente {
 		return cpf;
 	}
 
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
 	public Integer getId() {
 		return id;
 	}
@@ -58,5 +56,5 @@ public class Cliente {
 	public String getNomeCliente() {
 		return nomeCliente;
 	}
-	
+
 }
