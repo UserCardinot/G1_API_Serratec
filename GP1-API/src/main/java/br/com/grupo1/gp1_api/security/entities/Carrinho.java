@@ -1,8 +1,18 @@
 package br.com.grupo1.gp1_api.security.entities;
 
-import jakarta.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
+import jakarta.persistence.OneToOne;
+import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "carrinho")
@@ -12,6 +22,10 @@ public class Carrinho {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "car_cd_id")
     private Integer id;
+
+    @OneToOne
+    @JoinColumn(name = "car_fk_cliente_id")
+    private Cliente cliente;
 
     @ManyToMany
     @JoinTable(
@@ -23,6 +37,12 @@ public class Carrinho {
 
     @Column(name = "car_dbl_total")
     private Double total;
+
+    public Carrinho(Cliente cliente, Set<Produto> produtos, Double total) {
+        this.cliente = cliente;
+        this.produtos = produtos;
+        this.total = total;
+    }
 
     public Carrinho() {
         this.total = 0.0;
@@ -58,6 +78,14 @@ public class Carrinho {
         this.total = total;
     }
 
+    public Cliente getCliente() {
+        return cliente;
+    }
+
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
+    }
+
     public void adicionarProduto(Produto produto) {
         this.produtos.add(produto);
         this.total += produto.getPreco();
@@ -70,5 +98,10 @@ public class Carrinho {
 
     private void calcularTotal() {
         this.total = produtos.stream().mapToDouble(Produto::getPreco).sum();
+    }
+
+    @Override
+    public String toString() {
+        return "Carrinho [cliente=" + cliente + ", id=" + id + ", produtos=" + produtos + ", total=" + total + "]";
     }
 }

@@ -8,6 +8,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
@@ -29,6 +30,10 @@ import jakarta.persistence.Table;
 	    @OneToOne
 	    @JoinColumn(name = "ped_fk_carrinho")
 	    private Carrinho carrinho;
+
+		@ManyToOne
+		@JoinColumn(name = "ped_fk_cliente", nullable = false)
+		private Cliente cliente;
 	    
 	    @Column(name = "ped_tx_nf")
 	    private Long nf;
@@ -36,11 +41,11 @@ import jakarta.persistence.Table;
 		public Pedido() {
 		}
 
-		public Pedido(Integer id, LocalDate dataPedido, String status, Carrinho carrinho, Long nf) {
-			this.id = id;
+		public Pedido(LocalDate dataPedido, String status, Carrinho carrinho, Cliente cliente, Long nf) {
 			this.dataPedido = dataPedido;
 			this.status = status;
 			this.carrinho = carrinho;
+			this.cliente = cliente;
 			this.nf = nf;
 		}
 
