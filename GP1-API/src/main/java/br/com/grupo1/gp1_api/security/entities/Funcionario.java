@@ -64,10 +64,6 @@ public class Funcionario {
 		return telefone;
 	}
 
-	public void setId(Integer id) {
-		this.id = id;
-	}
-
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
@@ -83,4 +79,13 @@ public class Funcionario {
 	public void setTelefone(String telefone) {
 		this.telefone = telefone;
 	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
 }
