@@ -33,9 +33,22 @@ public class ClienteService {
 	public List<Cliente> findAll() {
 		return clienteRepository.findAll();
 	}
-	
+
 	public void deletarCliente(Integer id) {
 		clienteRepository.deleteById(id);
 	}
 
+	public Cliente atualizarCliente(Integer id, ClienteDTO clienteDto) {
+		Optional<Cliente> clienteUpdate = clienteRepository.findById(id);
+
+		if (clienteUpdate.isPresent()) {
+			Cliente cliente = clienteUpdate.get();
+			cliente.setNome(clienteDto.getNome());
+			cliente.setCpf(clienteDto.getCpf());
+			cliente.setUser(clienteDto.getUser());
+			return clienteRepository.save(cliente);
+		} else {
+			throw new RuntimeException("ID não encontrado");
+		}
+	}
 }
