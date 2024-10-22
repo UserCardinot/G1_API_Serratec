@@ -21,6 +21,10 @@ public class SignupRequestDTO {
 	@NotBlank
 	@Size(min = 6, max = 40)
 	private String password;
+	
+	@NotBlank
+	@Size(max = 80)
+	private String nomeCompleto;
 
 	public String getUsername() {
 		return username;
@@ -53,5 +57,14 @@ public class SignupRequestDTO {
 	public void setRole(Set<String> role) {
 		this.role = role;
 	}
+
+	public String getNomeCompleto() {
+		return nomeCompleto;
+	}
+
+	public void setNomeCompleto(String nomeCompleto) {
+		this.nomeCompleto = nomeCompleto;
+	}
+	
 }
 
