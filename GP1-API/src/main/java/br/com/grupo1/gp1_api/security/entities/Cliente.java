@@ -34,7 +34,6 @@ public class Cliente {
 	private Endereco endereco;
 
 	public Cliente() {
-
 	}
 
 	public Endereco getEndereco() {
@@ -57,4 +56,19 @@ public class Cliente {
 		return nomeCliente;
 	}
 
+	public User getUser() {
+		return user;
+	}
+
+	public void setCpf(Double cpf) {
+		this.cpf = cpf;
+	}
+
+	public void setNomeCliente(String nomeCliente) {
+		this.nomeCliente = nomeCliente;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
 }
