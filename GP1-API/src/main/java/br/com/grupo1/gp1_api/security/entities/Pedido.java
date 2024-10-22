@@ -33,7 +33,7 @@ import jakarta.persistence.Table;
 
 		@ManyToOne
 		@JoinColumn(name = "ped_fk_cliente", nullable = false)
-		private Cliente cliente;
+		private Cliente cliente;	
 	    
 	    @Column(name = "ped_tx_nf")
 	    private Long nf;
