@@ -23,10 +23,14 @@ public class ClienteService {
 		Optional<Cliente> cliente = clienteRepository.findById(id);
 		ClienteDTO clienteDto = new ClienteDTO();
 		clienteDto.setNome(cliente.get().getNome());
-		clienteDto.setCpf(cliente.get().getCpf());;
+		clienteDto.setCpf(cliente.get().getCpf());
 			
 		return clienteDto;
 		
+	}
+
+	public void deletarCliente(Integer id) {
+		clienteRepository.deleteById(id);
 	}
 	
 }
