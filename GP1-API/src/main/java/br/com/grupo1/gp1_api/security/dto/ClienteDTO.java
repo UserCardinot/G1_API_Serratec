@@ -2,9 +2,8 @@ package br.com.grupo1.gp1_api.security.dto;
 
 import br.com.grupo1.gp1_api.security.entities.User;
 
-
 public class ClienteDTO {
-	
+
 	private Integer id;
 
 	private User user;
@@ -36,6 +35,4 @@ public class ClienteDTO {
 	public Integer getId() {
 		return id;
 	}
-	
 }
-
