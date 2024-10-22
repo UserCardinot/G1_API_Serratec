@@ -22,12 +22,16 @@ import br.com.grupo1.gp1_api.security.dto.JwtResponseDTO;
 import br.com.grupo1.gp1_api.security.dto.LoginRequestDTO;
 import br.com.grupo1.gp1_api.security.dto.MessageResponseDTO;
 import br.com.grupo1.gp1_api.security.dto.SignupRequestDTO;
+import br.com.grupo1.gp1_api.security.entities.Cliente;
+import br.com.grupo1.gp1_api.security.entities.Funcionario;
 import br.com.grupo1.gp1_api.security.entities.Role;
 import br.com.grupo1.gp1_api.security.entities.User;
 import br.com.grupo1.gp1_api.security.enums.RoleEnum;
 import br.com.grupo1.gp1_api.security.jwt.JwtUtils;
 import br.com.grupo1.gp1_api.security.repositories.RoleRepository;
 import br.com.grupo1.gp1_api.security.repositories.UserRepository;
+import br.com.grupo1.gp1_api.security.services.ClienteService;
+import br.com.grupo1.gp1_api.security.services.FuncionarioService;
 import br.com.grupo1.gp1_api.security.services.UserDetailsImpl;
 import jakarta.validation.Valid;
 
@@ -49,6 +53,12 @@ public class AuthController {
 
 	@Autowired
 	JwtUtils jwtUtils;
+
+	@Autowired
+	FuncionarioService funcionarioService;
+
+	@Autowired
+	ClienteService clienteService;
 
 	@PostMapping("/signin")
 	public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequestDTO loginRequest) {
@@ -84,34 +94,52 @@ public class AuthController {
 		Set<Role> roles = new HashSet<>();
 
 		if (strRoles == null) {
-			Role userRole = roleRepository.findByName(RoleEnum.ROLE_USER)
+			Role clienteRole = roleRepository.findByName(RoleEnum.ROLE_CLIENTE)
 					.orElseThrow(() -> new RuntimeException("Erro: Role não encontrada."));
-			roles.add(userRole);
+			roles.add(clienteRole);
+
+			user.setRoles(roles);
+			userRepository.save(user);
+
+			Cliente novoCliente = new Cliente();
+			novoCliente.setNome(signUpRequest.getNomeCompleto().trim());
+			novoCliente.setUser(user);
+			clienteService.cadastrarCliente(novoCliente);
+
 		} else {
 			strRoles.forEach(role -> {
 				switch (role) {
-				case "admin":
-					Role adminRole = roleRepository.findByName(RoleEnum.ROLE_ADMIN)
+				case "funcionário":
+					Role funcionarioRole = roleRepository.findByName(RoleEnum.ROLE_FUNCIONARIO)
 							.orElseThrow(() -> new RuntimeException("Erro: Role não encontrada."));
-					roles.add(adminRole);
+					roles.add(funcionarioRole);
 
-					break;
-				case "mod":
-					Role modRole = roleRepository.findByName(RoleEnum.ROLE_MODERATOR)
-							.orElseThrow(() -> new RuntimeException("Erro: Role não encontrada."));
-					roles.add(modRole);
+					user.setRoles(roles);
+					userRepository.save(user);
+
+					Funcionario novoFuncionario = new Funcionario();
+					novoFuncionario.setCargo("admin");
+					novoFuncionario.setUser(user);
+					novoFuncionario.setNome(signUpRequest.getNomeCompleto().trim());
+					novoFuncionario.setSalario(3000.);
+					funcionarioService.save(novoFuncionario);
 
 					break;
 				default:
-					Role userRole = roleRepository.findByName(RoleEnum.ROLE_USER)
+					Role clienteRole = roleRepository.findByName(RoleEnum.ROLE_CLIENTE)
 							.orElseThrow(() -> new RuntimeException("Erro: Role não encontrada."));
-					roles.add(userRole);
+					roles.add(clienteRole);
+
+					user.setRoles(roles);
+					userRepository.save(user);
+
+					Cliente novoCliente = new Cliente();
+					novoCliente.setNome(signUpRequest.getNomeCompleto().trim());
+					novoCliente.setUser(user);
+					clienteService.cadastrarCliente(novoCliente);
 				}
 			});
 		}
-
-		user.setRoles(roles);
-		userRepository.save(user);
 
 		return ResponseEntity.ok(new MessageResponseDTO("Usuário registrado com sucesso!"));
 	}
