@@ -11,103 +11,93 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
-import jakarta.validation.constraints.Size;
 
 @Entity
 @Table(name = "funcionario")
 public class Funcionario {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "fun_cd_id")
-    private Integer id;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "fun_cd_id")
+	private Integer id;
 
-    @Column(name = "fun_txt_nome")
-    private String nome;
+	@OneToOne
+	@JoinColumn(name = "fun_fk_usuario")
+	private User user;
 
-    @Size(max = 20)
-    @Column(name = "fun_txt_password")
-    private String password;
+	@Column(name = "fun_txt_nome")
+	private String nome;
 
-    @Column(name = "fun_int_salario")
-    private Double salario;
+	@Column(name = "fun_int_salario")
+	private Double salario;
 
-    @Column(name = "fun_txt_cargo")
-    private String cargo;
+	@Column(name = "fun_txt_cargo")
+	private String cargo;
 
-    @Column(name = "fun_txt_telefone")
-    private String telefone;
+	@Column(name = "fun_txt_telefone")
+	private String telefone;
 
-    @ManyToMany
-    @JoinTable(name = "funcionario_produto", joinColumns = @JoinColumn(name = "funcionario_id"), inverseJoinColumns = @JoinColumn(name = "produto_id"))
-    private Set<Produto> funcionarioProduto = new HashSet<>();
-    
+	@ManyToMany
+	@JoinTable(name = "funcionario_produto", joinColumns = @JoinColumn(name = "funcionario_id"), inverseJoinColumns = @JoinColumn(name = "produto_id"))
+	private Set<Produto> funcionarioProduto = new HashSet<>();
 
-    public Funcionario() {
-    }
+	public Funcionario() {
+	}
 
-    public Funcionario(String nome, String password, Double salario, String cargo, String telefone) {
-        this.nome = nome;
-        this.password = password;
-        this.salario = salario;
-        this.cargo = cargo;
-        this.telefone = telefone;
-    }
+	public Funcionario(String nome, Double salario, String cargo, String telefone) {
+		this.nome = nome;
+		this.salario = salario;
+		this.cargo = cargo;
+		this.telefone = telefone;
+	}
 
-    public Integer getId() {
-        return id;
-    }
+	public Integer getId() {
+		return id;
+	}
 
-    public String getNome() {
-        return nome;
-    }
+	public String getNome() {
+		return nome;
+	}
 
-    public String getPassword() {
-        return password;
-    }
+	public Double getSalario() {
+		return salario;
+	}
 
-    public Double getSalario() {
-        return salario;
-    }
+	public String getCargo() {
+		return cargo;
+	}
 
-    public String getCargo() {
-        return cargo;
-    }
+	public String getTelefone() {
+		return telefone;
+	}
 
-    public String getTelefone() {
-        return telefone;
-    }
+	public void setId(Integer id) {
+		this.id = id;
+	}
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
 
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
+	public void setSalario(Double salario) {
+		this.salario = salario;
+	}
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
+	public void setCargo(String cargo) {
+		this.cargo = cargo;
+	}
 
-    public void setSalario(Double salario) {
-        this.salario = salario;
-    }
+	public void setTelefone(String telefone) {
+		this.telefone = telefone;
+	}
 
-    public void setCargo(String cargo) {
-        this.cargo = cargo;
-    }
+	public Set<Produto> getFuncionarioProduto() {
+		return funcionarioProduto;
+	}
 
-    public void setTelefone(String telefone) {
-        this.telefone = telefone;
-    }
-
-    public Set<Produto> getFuncionarioProduto() {
-        return funcionarioProduto;
-    }
-
-    public void setFuncionarioProduto(Set<Produto> funcionarioProduto) {
-        this.funcionarioProduto = funcionarioProduto;
-    }
+	public void setFuncionarioProduto(Set<Produto> funcionarioProduto) {
+		this.funcionarioProduto = funcionarioProduto;
+	}
 }
