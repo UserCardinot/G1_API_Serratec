@@ -9,12 +9,9 @@ import org.springframework.stereotype.Repository;
 import br.com.grupo1.gp1_api.security.entities.Funcionario;
 
 @Repository
-public interface FuncionarioRepository extends JpaRepository<Funcionario, Integer>{
+public interface FuncionarioRepository extends JpaRepository<Funcionario, Integer> {
 
-    List<Funcionario> findAll();
+	List<Funcionario> findAll();
 
-    Optional<Funcionario> findByNome(String nome);
-
-    Funcionario save(Funcionario funcionario);
-
+	Optional<Funcionario> findByNome(String nome);
 }
