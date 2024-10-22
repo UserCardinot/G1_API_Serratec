@@ -80,5 +80,16 @@ import jakarta.persistence.Table;
 		public Carrinho getCarrinho() {
 			return carrinho;
 		}
-	     
+
+		public void setCarrinho(Carrinho carrinho) {
+			this.carrinho = carrinho;
+		}
+
+		public Cliente getCliente() {
+			return cliente;
+		}
+
+		public void setCliente(Cliente cliente) {
+			this.cliente = cliente;
+		}  
 }
