@@ -1,5 +1,7 @@
 package br.com.grupo1.gp1_api.security.entities;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -21,6 +23,7 @@ public class Cliente {
 
 	@OneToOne
 	@JoinColumn(name = "cl_fk_usuario")
+	@JsonManagedReference
 	private User user;
 
 	@Column(name = "cl_nome")
@@ -31,6 +34,7 @@ public class Cliente {
 
 	@ManyToOne
 	@JoinColumn(name = "cl_fk_endereco")
+	@JsonManagedReference
 	private Endereco endereco;
 
 	public Cliente() {

@@ -3,6 +3,9 @@ package br.com.grupo1.gp1_api.security.entities;
 import java.util.HashSet;
 import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -25,6 +28,7 @@ public class Carrinho {
 
     @OneToOne
     @JoinColumn(name = "car_fk_cliente_id")
+	@JsonManagedReference
     private Cliente cliente;
 
     @ManyToMany
@@ -33,6 +37,7 @@ public class Carrinho {
         joinColumns = @JoinColumn(name = "carrinho_id"),
         inverseJoinColumns = @JoinColumn(name = "produto_id") 
     )
+	@JsonBackReference
     private Set<Produto> produtos = new HashSet<>();
 
     @Column(name = "car_dbl_total")

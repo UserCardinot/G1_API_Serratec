@@ -1,5 +1,7 @@
 package br.com.grupo1.gp1_api.security.entities;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -20,6 +22,7 @@ public class Funcionario {
 
 	@OneToOne
 	@JoinColumn(name = "fun_fk_usuario")
+	@JsonManagedReference
 	private User user;
 
 	@Column(name = "fun_txt_nome")

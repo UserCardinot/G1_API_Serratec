@@ -2,6 +2,8 @@ package br.com.grupo1.gp1_api.security.entities;
 
 import java.time.LocalDate;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -29,10 +31,12 @@ import jakarta.persistence.Table;
 	    
 	    @OneToOne
 	    @JoinColumn(name = "ped_fk_carrinho")
+		@JsonManagedReference
 	    private Carrinho carrinho;
 
 		@ManyToOne
 		@JoinColumn(name = "ped_fk_cliente", nullable = false)
+		@JsonManagedReference
 		private Cliente cliente;	
 	    
 	    @Column(name = "ped_tx_nf")
