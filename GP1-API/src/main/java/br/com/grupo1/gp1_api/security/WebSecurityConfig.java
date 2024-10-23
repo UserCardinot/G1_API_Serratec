@@ -41,7 +41,7 @@ public class WebSecurityConfig {
 				.authorizeHttpRequests(auth -> auth
 						.requestMatchers("/g6/**", "/auth/**", "/h2-console/**", "/roles/**", "/test/all/**",
 								"/swagger-ui/**", "/v3/api-docs/**", "/actuator/**", "/enderecos/**", "/teste/**",
-								"/cliente/**", "/funcionarios/**", "/produtos/**", "/pedidos/**")
+								"/cliente/**", "/funcionarios/**", "/produtos/**", "/pedidos/**","/categorias/**")
 						.permitAll().requestMatchers("/test/user/**").hasAnyRole("CLIENTE", "FUNCIONÁRIO")
 						.requestMatchers("/test/admin/**").hasRole("FUNCIONÁRIO").anyRequest().authenticated());
 
