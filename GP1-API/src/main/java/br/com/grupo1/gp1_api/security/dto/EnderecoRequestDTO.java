@@ -2,6 +2,7 @@ package br.com.grupo1.gp1_api.security.dto;
 
 public class EnderecoRequestDTO {
 
+	private Integer idCliente;
 	private String cep;
 	private int numero;
 	private String complemento;
@@ -28,6 +29,10 @@ public class EnderecoRequestDTO {
 
 	public void setComplemento(String complemento) {
 		this.complemento = complemento;
+	}
+
+	public Integer getIdCliente() {
+		return idCliente;
 	}
 
 }

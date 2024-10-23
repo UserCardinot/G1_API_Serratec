@@ -18,6 +18,7 @@ public class EnderecoController {
 
 	@Autowired
 	private EnderecoService enderecoService;
+	
 
 	@PostMapping
 	public ResponseEntity<EnderecoResponseDTO> criarEndereco(@RequestBody EnderecoRequestDTO enderecoRequestDTO) {

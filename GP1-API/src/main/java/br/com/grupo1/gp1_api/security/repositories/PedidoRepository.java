@@ -18,4 +18,7 @@ public interface PedidoRepository extends JpaRepository<Pedido, Integer> {
 	Boolean existsByStatus(String status);
 
 	Boolean existsByNf(Long nf);
+	
+	
+
 }
