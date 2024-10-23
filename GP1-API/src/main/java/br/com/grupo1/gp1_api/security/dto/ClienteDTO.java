@@ -4,8 +4,6 @@ import br.com.grupo1.gp1_api.security.entities.User;
 
 public class ClienteDTO {
 
-	private Integer id;
-
 	private User user;
 
 	private String nome;
@@ -31,8 +29,5 @@ public class ClienteDTO {
 	public void setCpf(Double cpf) {
 		this.cpf = cpf;
 	}
-
-	public Integer getId() {
-		return id;
-	}
+	
 }
