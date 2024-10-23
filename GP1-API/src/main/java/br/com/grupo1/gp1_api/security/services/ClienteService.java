@@ -25,7 +25,6 @@ public class ClienteService {
 		ClienteDTO clienteDto = new ClienteDTO();
 		clienteDto.setNome(cliente.get().getNome());
 		clienteDto.setCpf(cliente.get().getCpf());
-		;
 
 		return clienteDto;
 	}
