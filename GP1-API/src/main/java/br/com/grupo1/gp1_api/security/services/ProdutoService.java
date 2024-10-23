@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import br.com.grupo1.gp1_api.security.dto.ProdutoDTO;
 import br.com.grupo1.gp1_api.security.entities.Produto;
 import br.com.grupo1.gp1_api.security.repositories.ProdutoRepository;
+
 @Service
 public class ProdutoService {
 
@@ -41,7 +42,7 @@ public class ProdutoService {
 	public void deletarProduto(Integer id) {
 		produtoRepository.deleteById(id);
 	}
-	
+
 	public Produto atualizarProduto(Integer id, ProdutoDTO produtoDto) {
 		Optional<Produto> produtoUpdate = produtoRepository.findById(id);
 
@@ -54,5 +55,14 @@ public class ProdutoService {
 		} else {
 			throw new RuntimeException("ID não encontrado");
 		}
+	}
+
+	public Produto criarProduto(ProdutoDTO produtoDto) {
+		Produto newProduto = new Produto();
+		newProduto.setNome(produtoDto.getNome());
+		newProduto.setDescricao(produtoDto.getDescricao());
+		newProduto.setEstoque(produtoDto.getEstoque());
+		newProduto.setPreco(produtoDto.getPreco());
+		return produtoRepository.save(newProduto);
 	}
 }

@@ -44,4 +44,5 @@ public class ClienteController {
 		Cliente clienteAtualizado = clienteService.atualizarCliente(id, clienteDto);
 		return ResponseEntity.ok(clienteAtualizado);
 	}
+	
 }
