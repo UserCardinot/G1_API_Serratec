@@ -1,5 +1,6 @@
 package br.com.grupo1.gp1_api.security.controllers;
 
+import java.io.IOException;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -16,7 +17,9 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import br.com.grupo1.gp1_api.security.dto.JwtResponseDTO;
 import br.com.grupo1.gp1_api.security.dto.LoginRequestDTO;
@@ -31,6 +34,7 @@ import br.com.grupo1.gp1_api.security.jwt.JwtUtils;
 import br.com.grupo1.gp1_api.security.repositories.RoleRepository;
 import br.com.grupo1.gp1_api.security.repositories.UserRepository;
 import br.com.grupo1.gp1_api.security.services.ClienteService;
+import br.com.grupo1.gp1_api.security.services.FotoService;
 import br.com.grupo1.gp1_api.security.services.FuncionarioService;
 import br.com.grupo1.gp1_api.security.services.UserDetailsImpl;
 import jakarta.validation.Valid;
@@ -59,6 +63,9 @@ public class AuthController {
 
 	@Autowired
 	ClienteService clienteService;
+	
+	@Autowired
+	FotoService fotoService;
 
 	@PostMapping("/signin")
 	public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequestDTO loginRequest) {
@@ -78,7 +85,7 @@ public class AuthController {
 	}
 
 	@PostMapping("/signup")
-	public ResponseEntity<?> registerUser(@Valid @RequestBody SignupRequestDTO signUpRequest) {
+	public ResponseEntity<?> registerUser(@Valid @RequestBody SignupRequestDTO signUpRequest, @RequestParam MultipartFile foto) {
 		if (userRepository.existsByUsername(signUpRequest.getUsername())) {
 			return ResponseEntity.badRequest().body(new MessageResponseDTO("Erro: Username já utilizado!"));
 		}
@@ -100,6 +107,7 @@ public class AuthController {
 
 			user.setRoles(roles);
 			userRepository.save(user);
+			
 
 			Cliente novoCliente = new Cliente();
 			novoCliente.setNome(signUpRequest.getNomeCompleto().trim());
@@ -132,6 +140,12 @@ public class AuthController {
 
 					user.setRoles(roles);
 					userRepository.save(user);
+					try {
+						fotoService.cadastrarFoto(foto, user);
+					} catch (IOException e) {
+						
+						e.printStackTrace();
+					}
 
 					Cliente novoCliente = new Cliente();
 					novoCliente.setNome(signUpRequest.getNomeCompleto().trim());
