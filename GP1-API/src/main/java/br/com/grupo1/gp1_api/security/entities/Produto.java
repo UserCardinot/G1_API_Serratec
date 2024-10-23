@@ -88,4 +88,5 @@ public class Produto {
     public Funcionario getFuncionario() {
         return funcionario;
     }
+
 }
