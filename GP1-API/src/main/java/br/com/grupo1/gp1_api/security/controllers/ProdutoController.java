@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,8 +24,15 @@ public class ProdutoController {
 
     @Autowired
     ProdutoRepository produtoRepository;
+    
+    @Autowired
     ProdutoService produtoService;
-    //trocar para DTO os que não estão 
+    
+    @PostMapping
+    public ResponseEntity<Produto> produtoDto(@RequestBody ProdutoDTO produtoDto) {
+		Produto newProduto = produtoService.criarProduto(produtoDto);
+		return ResponseEntity.ok(newProduto);
+    }
 
     @GetMapping
     public List<Produto> getAllProdutos() {

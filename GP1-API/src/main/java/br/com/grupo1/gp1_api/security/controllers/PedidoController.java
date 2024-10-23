@@ -33,7 +33,7 @@ public class PedidoController {
 		return pedidoRepository.findAll();
 	}
 
-	@PostMapping("/{id}")
+	@PostMapping
 	public ResponseEntity<Pedido> pedidoDto(@RequestBody PedidoRequestDTO pedidoRequest) {
 		Pedido newPedido = pedidoService.criarPedido(pedidoRequest);
 		return ResponseEntity.ok(newPedido);
