@@ -43,5 +43,10 @@ public class ClienteController {
 	public ResponseEntity<Cliente> atualizarCliente(@PathVariable Integer id, @RequestBody ClienteDTO clienteDto) {
 		Cliente clienteAtualizado = clienteService.atualizarCliente(id, clienteDto);
 		return ResponseEntity.ok(clienteAtualizado);
+<<<<<<< HEAD
+	 } 
+
+=======
 	}
+>>>>>>> origin/main
 }
