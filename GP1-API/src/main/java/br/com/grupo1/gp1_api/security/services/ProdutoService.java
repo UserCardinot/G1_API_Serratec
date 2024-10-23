@@ -7,7 +7,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.com.grupo1.gp1_api.security.dto.ProdutoDTO;
+import br.com.grupo1.gp1_api.security.entities.Categoria;
+import br.com.grupo1.gp1_api.security.entities.Funcionario;
 import br.com.grupo1.gp1_api.security.entities.Produto;
+import br.com.grupo1.gp1_api.security.repositories.CategoriaRepository;
+import br.com.grupo1.gp1_api.security.repositories.FuncionarioRepository;
 import br.com.grupo1.gp1_api.security.repositories.ProdutoRepository;
 
 @Service
@@ -15,6 +19,12 @@ public class ProdutoService {
 
 	@Autowired
 	private ProdutoRepository produtoRepository;
+
+	@Autowired
+	private CategoriaRepository categoriaRepository;
+	
+	@Autowired
+	private FuncionarioRepository funcionarioRepository;
 
 	public List<Produto> findAll() {
 		return produtoRepository.findAll();
@@ -58,11 +68,29 @@ public class ProdutoService {
 	}
 
 	public Produto criarProduto(ProdutoDTO produtoDto) {
+
+		Optional<Categoria> categoria = categoriaRepository
+				.findByDescricao(produtoDto.getCategoria().trim().toLowerCase());
+
+		if (!categoria.isPresent()) {
+			return null;
+		}
+		
+		Optional<Funcionario> funcionario = funcionarioRepository
+				.findById(produtoDto.getIdFuncionario());
+		
+		if (!funcionario.isPresent()) {
+			return null;
+		}
+
 		Produto newProduto = new Produto();
 		newProduto.setNome(produtoDto.getNome());
 		newProduto.setDescricao(produtoDto.getDescricao());
 		newProduto.setEstoque(produtoDto.getEstoque());
 		newProduto.setPreco(produtoDto.getPreco());
+		newProduto.setCategoria(categoria.get());
+		newProduto.setFuncionario(funcionario.get());
+
 		return produtoRepository.save(newProduto);
 	}
 }

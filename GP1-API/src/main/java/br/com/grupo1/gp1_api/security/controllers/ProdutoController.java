@@ -29,8 +29,11 @@ public class ProdutoController {
     ProdutoService produtoService;
     
     @PostMapping
-    public ResponseEntity<Produto> produtoDto(@RequestBody ProdutoDTO produtoDto) {
+    public ResponseEntity<?> criarProduto(@RequestBody ProdutoDTO produtoDto) {
 		Produto newProduto = produtoService.criarProduto(produtoDto);
+		if(newProduto == null) {
+			return ResponseEntity.badRequest().body("Erro: Categoria não cadastrada ou funcionário não encontrado!");
+		}
 		return ResponseEntity.ok(newProduto);
     }
 
