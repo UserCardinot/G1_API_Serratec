@@ -8,13 +8,18 @@ import org.springframework.stereotype.Service;
 
 import br.com.grupo1.gp1_api.security.dto.ClienteDTO;
 import br.com.grupo1.gp1_api.security.entities.Cliente;
+import br.com.grupo1.gp1_api.security.entities.User;
 import br.com.grupo1.gp1_api.security.repositories.ClienteRepository;
+import br.com.grupo1.gp1_api.security.repositories.UserRepository;
 
 @Service
 public class ClienteService {
 
 	@Autowired
 	ClienteRepository clienteRepository;
+	
+	@Autowired
+	UserRepository userRepository;
 
 	public Cliente cadastrarCliente(Cliente cliente) {
 		return clienteRepository.save(cliente);
@@ -50,9 +55,10 @@ public class ClienteService {
 		}
 	}
 
-	public Integer buscarIdPorUsuario(String username) {
-        return clienteRepository.findByUsuario(username)
-                .orElseThrow(() -> new RuntimeException("Cliente não encontrado com o nome de usuário: " + username))
-                .getId();
+	public List<Cliente> buscarIdPorUsuario(String username) {
+		Optional<User> usuario = userRepository.findByUsername(username.trim()); 
+        return clienteRepository.findByUser(usuario.get());
+//                .orElseThrow(() -> new RuntimeException("Cliente não encontrado com o nome de usuário: " + username))
+//                .getId();
 	}
 }

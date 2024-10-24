@@ -7,6 +7,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import br.com.grupo1.gp1_api.security.entities.Cliente;
+import br.com.grupo1.gp1_api.security.entities.User;
+
 
 @Repository
 public interface ClienteRepository extends JpaRepository<Cliente, Integer> {
@@ -16,5 +18,5 @@ public interface ClienteRepository extends JpaRepository<Cliente, Integer> {
 
 	List<Cliente> findAll();
 
-	Optional<Cliente> findByUsuario(String username);
+	List<Cliente> findByUser(User user);
 }
