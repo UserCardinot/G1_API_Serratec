@@ -6,6 +6,7 @@ import java.util.Set;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
+import br.com.grupo1.gp1_api.security.dto.ProdutoDTO;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -109,4 +110,24 @@ public class Carrinho {
     public String toString() {
         return "Carrinho [cliente=" + cliente + ", id=" + id + ", produtos=" + produtos + ", total=" + total + "]";
     }
+    
+	public Set<ProdutoDTO> listaProdutosToListaProdutosDTO() {
+		
+		Set<ProdutoDTO> listaProdutosFormatada = new HashSet<>();
+		
+		for(Produto produto : this.produtos) {
+			ProdutoDTO produtoFormatado = new ProdutoDTO();
+			Categoria categoria = produto.getCategoria();
+			Funcionario funcionario = produto.getFuncionario();
+			produtoFormatado.setCategoria(categoria.getDescricao());
+			produtoFormatado.setDescricao(produto.getDescricao());
+			produtoFormatado.setEstoque(produto.getEstoque());
+			produtoFormatado.setIdFuncionario(funcionario.getId());
+			produtoFormatado.setNome(produto.getNome());
+			produtoFormatado.setPreco(produto.getPreco());
+			listaProdutosFormatada.add(produtoFormatado);
+		}
+		
+		return listaProdutosFormatada;
+	}
 }
