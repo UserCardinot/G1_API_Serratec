@@ -1,8 +1,10 @@
 package br.com.grupo1.gp1_api.security.controllers;
 
+import java.io.IOException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import br.com.grupo1.gp1_api.security.dto.PedidoRequestDTO;
 import br.com.grupo1.gp1_api.security.entities.Pedido;
 import br.com.grupo1.gp1_api.security.repositories.PedidoRepository;
+import br.com.grupo1.gp1_api.security.services.EmailService;
 import br.com.grupo1.gp1_api.security.services.PedidoService;
 
 @RestController
@@ -28,13 +31,26 @@ public class PedidoController {
 	@Autowired
 	PedidoService pedidoService;
 
+	@Autowired
+	EmailService emailService;
+
 	@GetMapping
-	public List<Pedido> getPedidos() {
-		return pedidoRepository.findAll();
+	public ResponseEntity<List<Pedido>> getPedidos() {
+		try {
+			List<Pedido> pedidos = pedidoRepository.findAll();
+
+			emailService.emailPersonalizadoPedido();
+
+			return ResponseEntity.ok(pedidos);
+		} catch (IOException e) {
+			e.printStackTrace();
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+					.body(null);
+		}
 	}
 
 	@PostMapping
-	public ResponseEntity<Pedido> pedidoDto(@RequestBody PedidoRequestDTO pedidoRequest) {
+	public ResponseEntity<?> pedidoDto(@RequestBody PedidoRequestDTO pedidoRequest) {
 		Pedido newPedido = pedidoService.criarPedido(pedidoRequest);
 		return ResponseEntity.ok(newPedido);
 	}
@@ -44,7 +60,7 @@ public class PedidoController {
 		Pedido pedido = pedidoService.atualizarPedido(id, status);
 		return ResponseEntity.ok(pedido);
 	}
-	
+
 	@DeleteMapping("/{id}")
 	public ResponseEntity<String> deletarPedido(@PathVariable Integer id) {
 		pedidoService.deletarPedido(id);
