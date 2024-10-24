@@ -1,6 +1,6 @@
 # G1_API_Serratec
 * Trabalho final de API Restfull
-* **[nome do projeto ]**
+* **[ API GAMES ]**
 
 ## 📑 Índice
 
