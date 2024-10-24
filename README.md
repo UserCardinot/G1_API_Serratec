@@ -28,26 +28,26 @@
 
 - Cliente-controller:
   
- - **GET** */clientes: Listar todos os clientes.*
+  - **GET** */clientes: Listar todos os clientes.*
 
- - **POST** */clientes/{id} : Criar um novo cliente.*
+  - **POST** */clientes/{id} : Criar um novo cliente.*
 
- - **PUT** */clientes/{id}: Atualizar um cliente existente.*
+  - **PUT** */clientes/{id}: Atualizar um cliente existente.*
 
- - **DELETE** */clientes/{id}: Excluir um cliente.*
+  - **DELETE** */clientes/{id}: Excluir um cliente.*
 
 
 - Produtos-controller:
   
- - **GET** */produtos: Listar todos os produtos.*
+  - **GET** */produtos: Listar todos os produtos.*
   
- - **GET** */produtos/{nome}: Pesquisar um produto*
+  - **GET** */produtos/{nome}: Pesquisar um produto*
 
- - **POST** */produtos/{id}: Criar um novo produto.*
+  - **POST** */produtos/{id}: Criar um novo produto.*
 
- - **PUT** */produtos/{id}: Atualizar um produto existente.*
+  - **PUT** */produtos/{id}: Atualizar um produto existente.*
 
- - **DELETE** */produtos/{id}: Excluir um produto.*
+  - **DELETE** */produtos/{id}: Excluir um produto.*
 
   
 ## 🌐 Tecnologias utilizadas
