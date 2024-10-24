@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.com.grupo1.gp1_api.security.dto.CarrinhoRequestDTO;
+import br.com.grupo1.gp1_api.security.dto.CarrinhoResponseDTO;
+import br.com.grupo1.gp1_api.security.dto.ProdutoDTO;
 import br.com.grupo1.gp1_api.security.entities.Carrinho;
 import br.com.grupo1.gp1_api.security.entities.Cliente;
 import br.com.grupo1.gp1_api.security.entities.Produto;
@@ -27,7 +29,7 @@ public class CarrinhoService {
 	@Autowired
 	ProdutoRepository produtoRepository;
 
-	public Carrinho exibirCarrinhoByIdCliente(int idCliente) {
+	public CarrinhoResponseDTO exibirCarrinhoByIdCliente(int idCliente) {
 		Optional<Cliente> cliente = clienteRepository.findById(idCliente);
 
 		if (!cliente.isPresent()) {
@@ -39,8 +41,16 @@ public class CarrinhoService {
 		if (!carrinho.isPresent()) {
 			return null;
 		}
-
-		return carrinho.get();
+		CarrinhoResponseDTO carrinhoResponse = new CarrinhoResponseDTO();
+		
+		Set<ProdutoDTO> listaProdutosFormatada = carrinho.get().listaProdutosToListaProdutosDTO();
+		
+		carrinhoResponse.setIdCliente(idCliente);
+		carrinhoResponse.setNomeCliente(cliente.get().getNome());
+		carrinhoResponse.setProdutos(listaProdutosFormatada);
+		carrinhoResponse.setValorTotal(carrinho.get().getTotal());
+		
+		return carrinhoResponse;
 	}
 
 	public Carrinho cadastrarCarrinho(CarrinhoRequestDTO carrinhoRequest) {
