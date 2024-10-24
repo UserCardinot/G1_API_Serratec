@@ -22,16 +22,24 @@
   
 ### Exemplos de Endpoints Documentados:
 - Cliente-controller:
+  
 **GET** */clientes: Listar todos os clientes.*
+
 **POST** */clientes/{id} : Criar um novo cliente.*
+
 **PUT** */clientes/{id}: Atualizar um cliente existente.*
+
 **DELETE** */clientes/{id}: Excluir um cliente.*
 
 - Produtos-controller:
 **GET** */produtos: Listar todos os produtos.*
+  
 **GET** */produtos/{nome}: Pesquisar um produto*
+
 **POST** */produtos/{id}: Criar um novo produto.*
+
 **PUT** */produtos/{id}: Atualizar um produto existente.*
+
 **DELETE** */produtos/{id}: Excluir um produto.*
   
 - Utilizamos o Postman para realizar testes nos endpoints, validando o fluxo de criação e manipulação de dados.
@@ -43,11 +51,11 @@
 - [**Spring Tool Suite 4 (STS)**:](https://spring.io/tools) IDE baseada no Eclipse, otimizada para facilitar o desenvolvimento de projetos Spring Boot, com funcionalidades que agilizam a criação e o gerenciamento de aplicações Spring.
 - [**Spring initializr**:](https://start.spring.io/) plataforma online que simplifica a criação de projetos Spring Boot, permitindo a configuração rápida de dependências e componentes iniciais.
 - [**Postman**:](https://www.postman.com/) ferramenta versátil para testar, documentar e colaborar em APIs REST, com funcionalidades que facilitam o envio de requisições e a análise de respostas. 
-- **Navegador Web (chrome, opera, edge, ...)**: utilizado para testar e validar o comportamento da aplicação web em um ambiente real, acessando interfaces e APIs desenvolvidas.
+- [**Navegador Web (chrome, opera, edge, ...)**:](https://www.google.pt/intl/pt-PT/chrome/?brand=OZZY&ds_kid=43700080663033655&gad_source=1&gclid=Cj0KCQjw4Oe4BhCcARIsADQ0csl8-GMCaOUfHHPMtjSLtPewrsEcGB6gNSERLbPHeIxSPeOPwYR6sWgaAhUPEALw_wcB&gclsrc=aw.ds) utilizado para testar e validar o comportamento da aplicação web em um ambiente real, acessando interfaces e APIs desenvolvidas.
 
 ## 🔁 Diagrama do banco de dados
 
-<img src=![gp1api - public](https://github.com/user-attachments/assets/f46d678c-9f17-425d-a0f1-39744c61c59f)
+![gp1api - public](https://github.com/user-attachments/assets/f46d678c-9f17-425d-a0f1-39744c61c59f)
 
 
 ## 🖥️ Desenvolvedores
