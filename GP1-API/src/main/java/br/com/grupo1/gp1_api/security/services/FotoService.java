@@ -21,7 +21,7 @@ public class FotoService {
 		fotoUsuario.setDados(foto.getBytes());
 		fotoUsuario.setTipo(foto.getContentType());
 		fotoUsuario.setNome(foto.getOriginalFilename());
-		fotoUsuario.setUser(null);
+		fotoUsuario.setUser(user);
 		return fotoRepository.save(fotoUsuario);
 	}
 }
