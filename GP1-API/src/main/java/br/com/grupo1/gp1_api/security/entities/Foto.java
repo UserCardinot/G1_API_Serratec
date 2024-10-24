@@ -33,18 +33,22 @@ public class Foto {
 	@OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
 	@JoinColumn(name = "user_id")
 	private User user;
+	
+	@Column(name = "fo_tx_url")
+	private String url;
 
 	public Foto() {
 
 	}
 
-	public Foto(Integer id, String tipo, String nome, byte[] dados, User user) {
+	public Foto(Integer id, String tipo, String nome, byte[] dados, User user, String url) {
 		super();
 		this.id = id;
 		this.tipo = tipo;
 		this.nome = nome;
 		this.dados = dados;
 		this.user = user;
+		this.url = url;
 	}
 
 	public Integer getId() {
@@ -85,6 +89,14 @@ public class Foto {
 
 	public void setUser(User user) {
 		this.user = user;
+	}
+	
+	public String getUrl() {
+		return url;
+	}
+	
+	public void setUrl(String url) {
+		this.url = url;
 	}
 
 	
