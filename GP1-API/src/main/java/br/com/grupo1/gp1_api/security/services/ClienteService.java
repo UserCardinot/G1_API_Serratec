@@ -49,4 +49,10 @@ public class ClienteService {
 			throw new RuntimeException("ID não encontrado");
 		}
 	}
+
+	public Integer buscarIdPorUsuario(String username) {
+        return clienteRepository.findByUsuario(username)
+                .orElseThrow(() -> new RuntimeException("Cliente não encontrado com o nome de usuário: " + username))
+                .getId();
+	}
 }

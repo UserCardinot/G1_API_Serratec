@@ -12,7 +12,9 @@ import br.com.grupo1.gp1_api.security.entities.Cliente;
 public interface ClienteRepository extends JpaRepository<Cliente, Integer> {
 	Optional<Cliente> findByNome(String nome);
 
-	Boolean existsByNome(String nome);
+	boolean existsByNome(String nome);
 
 	List<Cliente> findAll();
+
+	Optional<Cliente> findByUsuario(String username);
 }
