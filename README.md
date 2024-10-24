@@ -18,9 +18,12 @@
   -- Geração de Token: Se autenticado com sucesso, o sistema gera um token JWT e o retorna no corpo da resposta.
   -- Validação de Token: Todas as requisições subsequentes a endpoints protegidos exigem que o token JWT seja incluído no header Authorization.**(Por enquanto não está solicitando essa solicitação)**
 
+  - Utilizamos o Postman para realizar testes nos endpoints, validando o fluxo de criação e manipulação de dados.
+
 - A documentação da API é gerada automaticamente usando o Swagger (via springdoc-openapi). Acessível por meio do endpoint: [gp1-api](http://localhost:8000/gp1-api/swagger-ui/index.html). A documentação expõe todos os endpoints do CRUD para as classes Cliente, Pedidos, Categoria, Funcionário, e Produtos, com detalhes sobre as operações permitidas (GET, POST, PUT, DELETE).
   
 ### Exemplos de Endpoints Documentados:
+
 - Cliente-controller:
   
 **GET** */clientes: Listar todos os clientes.*
@@ -31,7 +34,9 @@
 
 **DELETE** */clientes/{id}: Excluir um cliente.*
 
+
 - Produtos-controller:
+  
 **GET** */produtos: Listar todos os produtos.*
   
 **GET** */produtos/{nome}: Pesquisar um produto*
@@ -41,16 +46,19 @@
 **PUT** */produtos/{id}: Atualizar um produto existente.*
 
 **DELETE** */produtos/{id}: Excluir um produto.*
+
   
-- Utilizamos o Postman para realizar testes nos endpoints, validando o fluxo de criação e manipulação de dados.
-
-
 ## 🌐 Tecnologias utilizadas
 - [**Maven**:](https://maven.apache.org/)  ferramenta de automação e gerenciamento de build, amplamente utilizada para compilar, testar e organizar projetos, especialmente no ecossistema Spring Boot.
+  
 - [**Maven Repository**:](https://mvnrepository.com/) repositório central de artefatos, onde bibliotecas e dependências são armazenadas e gerenciadas para projetos Maven.
+  
 - [**Spring Tool Suite 4 (STS)**:](https://spring.io/tools) IDE baseada no Eclipse, otimizada para facilitar o desenvolvimento de projetos Spring Boot, com funcionalidades que agilizam a criação e o gerenciamento de aplicações Spring.
+  
 - [**Spring initializr**:](https://start.spring.io/) plataforma online que simplifica a criação de projetos Spring Boot, permitindo a configuração rápida de dependências e componentes iniciais.
-- [**Postman**:](https://www.postman.com/) ferramenta versátil para testar, documentar e colaborar em APIs REST, com funcionalidades que facilitam o envio de requisições e a análise de respostas. 
+  
+- [**Postman**:](https://www.postman.com/) ferramenta versátil para testar, documentar e colaborar em APIs REST, com funcionalidades que facilitam o envio de requisições e a análise de respostas.
+  
 - [**Navegador Web (chrome, opera, edge, ...)**:](https://www.google.pt/intl/pt-PT/chrome/?brand=OZZY&ds_kid=43700080663033655&gad_source=1&gclid=Cj0KCQjw4Oe4BhCcARIsADQ0csl8-GMCaOUfHHPMtjSLtPewrsEcGB6gNSERLbPHeIxSPeOPwYR6sWgaAhUPEALw_wcB&gclsrc=aw.ds) utilizado para testar e validar o comportamento da aplicação web em um ambiente real, acessando interfaces e APIs desenvolvidas.
 
 ## 🔁 Diagrama do banco de dados
