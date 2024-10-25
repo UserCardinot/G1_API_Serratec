@@ -1,6 +1,7 @@
 package br.com.grupo1.gp1_api.security.services;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -89,6 +90,26 @@ public class PedidoService {
 		pedidoRepository.save(novoPedido);
 
 		return novoPedido.toPedidoResponseDTO();
+	}
+
+	public List<PedidoResponseDTO> listarPedidos(Integer idCliente) {
+
+		Optional<Cliente> cliente = clienteRepository.findById(idCliente);
+
+		if (!cliente.isPresent()) {
+			return null;
+		}
+
+		List<Pedido> listaPedidos = pedidoRepository.findByCliente(cliente.get());
+		List<PedidoResponseDTO> listaPedidosResponse = new ArrayList<>();
+	
+		for (Pedido pedido : listaPedidos) {
+			PedidoResponseDTO pedidoResponse = pedido.toPedidoResponseDTO();
+			listaPedidosResponse.add(pedidoResponse);
+		}
+		
+		return listaPedidosResponse;
+		
 	}
 
 }
