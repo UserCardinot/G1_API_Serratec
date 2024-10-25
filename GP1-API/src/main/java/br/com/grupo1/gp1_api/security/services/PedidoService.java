@@ -1,12 +1,16 @@
 package br.com.grupo1.gp1_api.security.services;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import br.com.grupo1.gp1_api.security.dto.PedidoRequestDTO;
+import br.com.grupo1.gp1_api.security.dto.CarrinhoResponseDTO;
+import br.com.grupo1.gp1_api.security.dto.PedidoResponseDTO;
+import br.com.grupo1.gp1_api.security.dto.ProdutoDTO;
 import br.com.grupo1.gp1_api.security.entities.Carrinho;
 import br.com.grupo1.gp1_api.security.entities.Cliente;
 import br.com.grupo1.gp1_api.security.entities.Pedido;
@@ -41,16 +45,16 @@ public class PedidoService {
 		return cliente.getId();
 	}
 
-	public Pedido criarPedido(PedidoRequestDTO pedidoRequest, Integer idCliente) {
-
-		Optional<Cliente> cliente = clienteRepository.findById(idCliente);
-		Optional<Carrinho> carrinho = carrinhoRepository.findByCliente(cliente.get());
-		Pedido novoPedido = new Pedido();
-		novoPedido.setCarrinho(carrinho.get());
-		novoPedido.setStatus(pedidoRequest.getStatus());
-
-		return pedidoRepository.save(novoPedido);
-	}
+//	public Pedido criarPedido(PedidoRequestDTO pedidoRequest, Integer idCliente) {
+//
+//		Optional<Cliente> cliente = clienteRepository.findById(idCliente);
+//		Optional<Carrinho> carrinho = carrinhoRepository.findByCliente(cliente.get());
+//		Pedido novoPedido = new Pedido();
+//		novoPedido.setCarrinho(carrinho.get());
+//		novoPedido.setStatus(pedidoRequest.getStatus());
+//
+//		return pedidoRepository.save(novoPedido);
+//	}
 
 	public Pedido atualizarPedido(Integer id, String status) {
 		Optional<Pedido> pedido = pedidoRepository.findById(id);
@@ -62,6 +66,50 @@ public class PedidoService {
 		Optional<Pedido> pedido = pedidoRepository.findById(id);
 		pedidoRepository.delete(pedido.get());
 
+	}
+
+	public PedidoResponseDTO cadastrarPedido(Integer idCliente) {
+
+		Optional<Cliente> cliente = clienteRepository.findById(idCliente);
+
+		if (!cliente.isPresent()) {
+			return null;
+		}
+
+		Optional<Carrinho> carrinho = carrinhoRepository.findByCliente(cliente.get());
+
+		if (!carrinho.isPresent()) {
+			return null;
+		}
+
+		Pedido novoPedido = new Pedido();
+		novoPedido.setCarrinho(carrinho.get());
+		novoPedido.setCliente(cliente.get());
+		novoPedido.setDataPedido(LocalDate.now());
+		novoPedido.setStatus("Pedido Confirmado");
+
+		pedidoRepository.save(novoPedido);
+
+		novoPedido.setNf(novoPedido.getId() + 1000L);
+
+		PedidoResponseDTO pedidoResponse = new PedidoResponseDTO();
+
+		CarrinhoResponseDTO carrinhoResponse = new CarrinhoResponseDTO();
+
+		Set<ProdutoDTO> listaProdutosFormatada = carrinho.get().listaProdutosToListaProdutosDTO();
+
+		carrinhoResponse.setIdCliente(idCliente);
+		carrinhoResponse.setNomeCliente(cliente.get().getNome());
+		carrinhoResponse.setProdutos(listaProdutosFormatada);
+		carrinhoResponse.setValorTotal(carrinho.get().getTotal());
+
+		pedidoResponse.setCarrinho(carrinhoResponse);
+		pedidoResponse.setDataPedido(novoPedido.getDataPedido());
+		pedidoResponse.setIdPedido(novoPedido.getId());
+		pedidoResponse.setNf(novoPedido.getNf());
+		pedidoResponse.setStatus(novoPedido.getStatus());
+
+		return pedidoResponse;
 	}
 
 }

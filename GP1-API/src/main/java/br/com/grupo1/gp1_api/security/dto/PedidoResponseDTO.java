@@ -1,48 +1,53 @@
 package br.com.grupo1.gp1_api.security.dto;
 
+import java.time.LocalDate;
+
 public class PedidoResponseDTO {
 
-    private Integer idPedido;
-    private String status;
-    private Integer idCarrinho;
-    private Integer idCliente;
+	private Integer idPedido;
+	private String status;
+	private CarrinhoResponseDTO carrinho;
+	private LocalDate dataPedido;
+	private Long nf;
 
-    public PedidoResponseDTO(Integer idPedido, String status, Integer idCarrinho, Integer idCliente) {
-        this.idPedido = idPedido;
-        this.status = status;
-        this.idCarrinho = idCarrinho;
-        this.idCliente = idCliente;
-    }
+	public Integer getIdPedido() {
+		return idPedido;
+	}
 
-    public Integer getIdPedido() {
-        return idPedido;
-    }
+	public void setIdPedido(Integer idPedido) {
+		this.idPedido = idPedido;
+	}
 
-    public void setIdPedido(Integer idPedido) {
-        this.idPedido = idPedido;
-    }
+	public String getStatus() {
+		return status;
+	}
 
-    public String getStatus() {
-        return status;
-    }
+	public void setStatus(String status) {
+		this.status = status;
+	}
 
-    public void setStatus(String status) {
-        this.status = status;
-    }
+	public CarrinhoResponseDTO getCarrinho() {
+		return carrinho;
+	}
 
-    public Integer getIdCarrinho() {
-        return idCarrinho;
-    }
+	public void setCarrinho(CarrinhoResponseDTO carrinho) {
+		this.carrinho = carrinho;
+	}
 
-    public void setIdCarrinho(Integer idCarrinho) {
-        this.idCarrinho = idCarrinho;
-    }
+	public LocalDate getDataPedido() {
+		return dataPedido;
+	}
 
-    public Integer getIdCliente() {
-        return idCliente;
-    }
+	public void setDataPedido(LocalDate dataPedido) {
+		this.dataPedido = dataPedido;
+	}
 
-    public void setIdCliente(Integer idCliente) {
-        this.idCliente = idCliente;
-    }
+	public Long getNf() {
+		return nf;
+	}
+
+	public void setNf(Long nf) {
+		this.nf = nf;
+	}
+
 }
