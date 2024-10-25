@@ -37,6 +37,7 @@ import br.com.grupo1.gp1_api.security.jwt.JwtUtils;
 import br.com.grupo1.gp1_api.security.repositories.RoleRepository;
 import br.com.grupo1.gp1_api.security.repositories.UserRepository;
 import br.com.grupo1.gp1_api.security.services.ClienteService;
+import br.com.grupo1.gp1_api.security.services.EmailService;
 import br.com.grupo1.gp1_api.security.services.FotoService;
 import br.com.grupo1.gp1_api.security.services.FuncionarioService;
 import br.com.grupo1.gp1_api.security.services.UserDetailsImpl;
@@ -66,9 +67,12 @@ public class AuthController {
 
 	@Autowired
 	ClienteService clienteService;
-	
+
 	@Autowired
 	FotoService fotoService;
+
+	@Autowired
+	EmailService emailService;
 
 	@PostMapping("/signin")
 	public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequestDTO loginRequest) {
@@ -88,7 +92,8 @@ public class AuthController {
 	}
 
 	@PostMapping("/signup")
-	public ResponseEntity<?> registerUser(@Valid @RequestPart SignupRequestDTO signUpRequest, @RequestPart MultipartFile foto) throws IOException {
+	public ResponseEntity<MessageResponseDTO> registerUser(@Valid @RequestPart SignupRequestDTO signUpRequest,
+			@RequestPart MultipartFile foto) throws IOException {
 		if (userRepository.existsByUsername(signUpRequest.getUsername())) {
 			return ResponseEntity.badRequest().body(new MessageResponseDTO("Erro: Username já utilizado!"));
 		}
@@ -110,7 +115,6 @@ public class AuthController {
 
 			user.setRoles(roles);
 			userRepository.save(user);
-			
 
 			Cliente novoCliente = new Cliente();
 			novoCliente.setNome(signUpRequest.getNomeCompleto().trim());
@@ -120,52 +124,58 @@ public class AuthController {
 		} else {
 			strRoles.forEach(role -> {
 				switch (role) {
-				case "funcionário":
-					Role funcionarioRole = roleRepository.findByName(RoleEnum.ROLE_FUNCIONARIO)
-							.orElseThrow(() -> new RuntimeException("Erro: Role não encontrada."));
-					roles.add(funcionarioRole);
+					case "funcionário":
+						Role funcionarioRole = roleRepository.findByName(RoleEnum.ROLE_FUNCIONARIO)
+								.orElseThrow(() -> new RuntimeException("Erro: Role não encontrada."));
+						roles.add(funcionarioRole);
 
-					user.setRoles(roles);
-					userRepository.save(user);
+						user.setRoles(roles);
+						userRepository.save(user);
 
-					Funcionario novoFuncionario = new Funcionario();
-					novoFuncionario.setCargo("admin");
-					novoFuncionario.setUser(user);
-					novoFuncionario.setNome(signUpRequest.getNomeCompleto().trim());
-					novoFuncionario.setSalario(3000.);
-					funcionarioService.save(novoFuncionario);
+						Funcionario novoFuncionario = new Funcionario();
+						novoFuncionario.setCargo("admin");
+						novoFuncionario.setUser(user);
+						novoFuncionario.setNome(signUpRequest.getNomeCompleto().trim());
+						novoFuncionario.setSalario(3000.);
+						funcionarioService.save(novoFuncionario);
 
-					break;
-				default:
-					Role clienteRole = roleRepository.findByName(RoleEnum.ROLE_CLIENTE)
-							.orElseThrow(() -> new RuntimeException("Erro: Role não encontrada."));
-					roles.add(clienteRole);
+						break;
+					default:
+						Role clienteRole = roleRepository.findByName(RoleEnum.ROLE_CLIENTE)
+								.orElseThrow(() -> new RuntimeException("Erro: Role não encontrada."));
+						roles.add(clienteRole);
 
-					user.setRoles(roles);
-					userRepository.save(user);
-					try {
-						fotoService.cadastrarFoto(foto, user);
-					} catch (IOException e) {
-						
-						e.printStackTrace();
-					}
+						user.setRoles(roles);
+						userRepository.save(user);
+						try {
+							fotoService.cadastrarFoto(foto, user);
+						} catch (IOException e) {
 
-					Cliente novoCliente = new Cliente();
-					novoCliente.setNome(signUpRequest.getNomeCompleto().trim());
-					novoCliente.setUser(user);
-					clienteService.cadastrarCliente(novoCliente);
+							e.printStackTrace();
+						}
+
+						Cliente novoCliente = new Cliente();
+						novoCliente.setNome(signUpRequest.getNomeCompleto().trim());
+						novoCliente.setUser(user);
+						clienteService.cadastrarCliente(novoCliente);
 				}
 			});
 		}
 
+		try {
+			emailService.emailPersonalizadoCadastro(signUpRequest);
+		} catch (IOException e) {
+			return ResponseEntity.badRequest().body(new MessageResponseDTO("Erro ao enviar email"));
+		}
+
 		return ResponseEntity.ok(new MessageResponseDTO("Usuário registrado com sucesso!"));
 	}
-	
+
 	@GetMapping("/{id}/foto")
-	public ResponseEntity<byte[]> consultarFoto(@PathVariable Integer id) throws Exception{
-		
+	public ResponseEntity<byte[]> consultarFoto(@PathVariable Integer id) throws Exception {
+
 		byte[] foto = fotoService.getFoto(id);
-		
-		return ResponseEntity.ok().contentType(MediaType.IMAGE_PNG).body(foto);
+
+		return ResponseEntity.ok().contentType(MediaType.IMAGE_JPEG).body(foto);
 	}
 }

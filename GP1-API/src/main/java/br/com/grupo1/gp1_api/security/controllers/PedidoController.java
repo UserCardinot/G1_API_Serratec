@@ -1,5 +1,6 @@
 package br.com.grupo1.gp1_api.security.controllers;
 
+import java.io.IOException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,35 +33,6 @@ public class PedidoController {
 	@Autowired
 	EmailService emailService;
 
-//	@GetMapping
-//	public ResponseEntity<List<Pedido>> getPedidos() {
-//		try {
-//			List<Pedido> pedidos = pedidoRepository.findAll();
-//
-//			emailService.emailPersonalizadoPedido();
-//
-//			return ResponseEntity.ok(pedidos);
-//		} catch (IOException e) {
-//			e.printStackTrace();
-//			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
-//		}
-//	}
-	
-//	@PostMapping
-//	public ResponseEntity<PedidoResponseDTO> criarPedido(@RequestBody PedidoRequestDTO pedidoRequest,
-//			@AuthenticationPrincipal UserDetails userDetails) {
-//
-//		Integer idCliente = pedidoService.obterIdClientePeloUsuario(userDetails.getUsername());
-//
-//		Pedido novoPedido = pedidoService.criarPedido(pedidoRequest, idCliente);
-//
-//		PedidoResponseDTO responseDTO = new PedidoResponseDTO(novoPedido.getId(), novoPedido.getStatus(),
-//				novoPedido.getCarrinho().getId(), novoPedido.getCliente().getId());
-//
-//		return ResponseEntity.status(HttpStatus.CREATED).body(responseDTO);
-//	}
-	
-
 	@PutMapping("/{id}")
 	public ResponseEntity<Pedido> atualizarPedido(@PathVariable Integer id, String status) {
 		Pedido pedido = pedidoService.atualizarPedido(id, status);
@@ -74,23 +46,31 @@ public class PedidoController {
 	}
 
 	@PostMapping("/{idCliente}")
-	public ResponseEntity<?> cadastrarPedido(@PathVariable Integer idCliente){
-		
+	public ResponseEntity<?> cadastrarPedido(@PathVariable Integer idCliente) {
+
 		PedidoResponseDTO novoPedido = pedidoService.cadastrarPedido(idCliente);
-		
-		if(novoPedido == null) {
-			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Erro: Cliente de id: " + idCliente + " não encontrado ou o mesmo ainda não possui um carrinho!");
+
+		if (novoPedido == null) {
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(
+					"Erro: Cliente de id: " + idCliente + " não encontrado ou o mesmo ainda não possui um carrinho!");
 		}
-		
+
+		try {
+			emailService.emailPersonalizadoPedido(novoPedido);
+		} catch (IOException e) {
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Erro ao enviar email!");
+		}
+
 		return ResponseEntity.status(HttpStatus.CREATED).body(novoPedido);
 	}
-	
+
 	@GetMapping("/{idCliente}")
-	public ResponseEntity<?> listarPedidos(@PathVariable Integer idCliente){
+	public ResponseEntity<?> listarPedidos(@PathVariable Integer idCliente) {
 		List<PedidoResponseDTO> listaPedidos = pedidoService.listarPedidos(idCliente);
-		
-		if(listaPedidos == null) {
-			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Erro: Cliente de id: " + idCliente + " não encontrado!");
+
+		if (listaPedidos == null) {
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+					.body("Erro: Cliente de id: " + idCliente + " não encontrado!");
 		}
 		return ResponseEntity.ok().body(listaPedidos);
 	}
