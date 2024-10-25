@@ -3,14 +3,11 @@ package br.com.grupo1.gp1_api.security.services;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import br.com.grupo1.gp1_api.security.dto.CarrinhoResponseDTO;
 import br.com.grupo1.gp1_api.security.dto.PedidoResponseDTO;
-import br.com.grupo1.gp1_api.security.dto.ProdutoDTO;
 import br.com.grupo1.gp1_api.security.entities.Carrinho;
 import br.com.grupo1.gp1_api.security.entities.Cliente;
 import br.com.grupo1.gp1_api.security.entities.Pedido;
@@ -87,29 +84,11 @@ public class PedidoService {
 		novoPedido.setCliente(cliente.get());
 		novoPedido.setDataPedido(LocalDate.now());
 		novoPedido.setStatus("Pedido Confirmado");
+		novoPedido.setNf(idCliente + 100000L + 5 * carrinho.get().getId());
 
 		pedidoRepository.save(novoPedido);
 
-		novoPedido.setNf(novoPedido.getId() + 1000L);
-
-		PedidoResponseDTO pedidoResponse = new PedidoResponseDTO();
-
-		CarrinhoResponseDTO carrinhoResponse = new CarrinhoResponseDTO();
-
-		Set<ProdutoDTO> listaProdutosFormatada = carrinho.get().listaProdutosToListaProdutosDTO();
-
-		carrinhoResponse.setIdCliente(idCliente);
-		carrinhoResponse.setNomeCliente(cliente.get().getNome());
-		carrinhoResponse.setProdutos(listaProdutosFormatada);
-		carrinhoResponse.setValorTotal(carrinho.get().getTotal());
-
-		pedidoResponse.setCarrinho(carrinhoResponse);
-		pedidoResponse.setDataPedido(novoPedido.getDataPedido());
-		pedidoResponse.setIdPedido(novoPedido.getId());
-		pedidoResponse.setNf(novoPedido.getNf());
-		pedidoResponse.setStatus(novoPedido.getStatus());
-
-		return pedidoResponse;
+		return novoPedido.toPedidoResponseDTO();
 	}
 
 }

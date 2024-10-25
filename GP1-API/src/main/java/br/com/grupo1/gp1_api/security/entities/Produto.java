@@ -2,6 +2,7 @@ package br.com.grupo1.gp1_api.security.entities;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
+import br.com.grupo1.gp1_api.security.dto.ProdutoDTO;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -105,6 +106,21 @@ public class Produto {
 
 	public void setFuncionario(Funcionario funcionario) {
 		this.funcionario = funcionario;
+	}
+
+	public ProdutoDTO toProdutoDTO() {
+
+		ProdutoDTO produtoDTO = new ProdutoDTO();
+		Categoria categoria = this.getCategoria();
+		Funcionario funcionario = this.getFuncionario();
+		produtoDTO.setCategoria(categoria.getDescricao());
+		produtoDTO.setDescricao(this.getDescricao());
+		produtoDTO.setEstoque(this.getEstoque());
+		produtoDTO.setIdFuncionario(funcionario.getId());
+		produtoDTO.setNome(this.getNome());
+		produtoDTO.setPreco(this.getPreco());
+
+		return produtoDTO;
 	}
 
 }
