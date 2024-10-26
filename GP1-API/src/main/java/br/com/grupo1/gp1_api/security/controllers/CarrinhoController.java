@@ -49,8 +49,10 @@ public class CarrinhoController {
 		CarrinhoResponseDTO novoCarrinho = carrinhoService.removerProdutoCarrinho(carrinhoRequest);
 
 		if (novoCarrinho == null) {
-			return ResponseEntity.badRequest().body("Erro: Cliente de id " + carrinhoRequest.getIdCliente()
-					+ " não encontrado ou produto de id " + carrinhoRequest.getIdProduto() + " não encontrado");
+			return ResponseEntity.badRequest()
+					.body("Erro: Cliente de id " + carrinhoRequest.getIdCliente() + " não encontrado ou produto de id "
+							+ carrinhoRequest.getIdProduto()
+							+ " não encontrado ou este carrinho já está em um pedido.");
 		}
 		return ResponseEntity.status(HttpStatus.CREATED).body(novoCarrinho);
 	}
@@ -61,7 +63,7 @@ public class CarrinhoController {
 
 		if (novoCarrinho == null) {
 			return ResponseEntity.badRequest().body("Erro: Cliente de id " + idCliente
-					+ " não encontrado ou o mesmo ainda não possui um carrinho!");
+					+ " não encontrado, ou o  carinho já está em um pedido ou o cliente ainda não possui um carrinho!");
 		}
 		return ResponseEntity.status(HttpStatus.CREATED).body(novoCarrinho);
 	}
