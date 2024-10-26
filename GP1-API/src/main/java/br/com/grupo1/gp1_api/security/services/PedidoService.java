@@ -43,17 +43,6 @@ public class PedidoService {
 		return cliente.getId();
 	}
 
-//	public Pedido criarPedido(PedidoRequestDTO pedidoRequest, Integer idCliente) {
-//
-//		Optional<Cliente> cliente = clienteRepository.findById(idCliente);
-//		Optional<Carrinho> carrinho = carrinhoRepository.findByCliente(cliente.get());
-//		Pedido novoPedido = new Pedido();
-//		novoPedido.setCarrinho(carrinho.get());
-//		novoPedido.setStatus(pedidoRequest.getStatus());
-//
-//		return pedidoRepository.save(novoPedido);
-//	}
-
 	public Pedido atualizarPedido(Integer id, String status) {
 		Optional<Pedido> pedido = pedidoRepository.findById(id);
 		pedido.get().setStatus(status);
